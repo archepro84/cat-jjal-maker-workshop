@@ -110,8 +110,10 @@
               alt="고양이"
               width="400"
             />
-            <button onClick={handleClickHeart}
-            onMouseOver={handleMouseOverHeart}>🤍</button>
+            <button
+                    onClick={handleClickHeart}
+                    onMouseOver={handleMouseOverHeart}
+            >🤍</button>
           </div>
         )
       }
@@ -128,12 +130,7 @@
         // useState는 상태 값을 나타낸다.
         // useState에는 초기값을 넣는다.
         // useState는 2개의 인자를 가진다.
-        // const counterState = React.useState(0);
-        // const counterValue = counterState[0]; // 1번째 인자 = 카운터 값
-        // const counterFunc = counterState[0]; // 2번째 인자 = 카운터를 변경하는 함수
-
         // const [counter, setCounter] = React.useState(0);
-        // console.log(counter);
 
         return (
           <form onSubmit={onSubmit}>
@@ -158,6 +155,7 @@
         }
 
         // 상위에서 Title에 state Counter와 Form에 state setCounter를 전달한다.
+        // 상태를 끌어올려서 하위 컴포넌트에게 상태를 전달한다.
         return (
           <div>
             <Title> {counter}번째 고양이 </Title>
