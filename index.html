@@ -68,6 +68,8 @@
         // 이모션이나 스타일드 컴포넌트 방식이 많이 사용된다.
         const myStyle = {width:'150px'};
 
+        // 중괄호에는 js 표현식을 사용할 수 있다 ...
+        // 브라우저 console에서 사용하는 것 처럼 동일한 표현식을 사용할 수 있다.
         return (
           <li>
             <img
@@ -77,20 +79,16 @@
             />
           </li>
         )
-
       }
 
-
-
-      // 중괄호에는 js 표현식을 사용할 수 있다 ...
-      // 브라우저 console에서 사용하는 것 처럼 동일한 표현식을 사용할 수 있다.
-
       function Favorites() {
+        const cats = [CAT1, CAT2, CAT3];
+
         return (
           <ul className="favorites">
-            <CatItem img="https://cataas.com/cat/60b73094e04e18001194a309/says/react"/>
-            <CatItem img="https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn"/>
-            <CatItem img="https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript"/>
+            {cats.map((cat) =>(
+                <CatItem key={cat} img={cat}/>
+              ))}
           </ul>
         )
       }
@@ -123,17 +121,22 @@
         return <h1>{props.children} </h1>
       }
 
-      function Form() {
-        function handleSubmit(e){
-          // 브라우저에서 submit이 실행되었을 경우엔 자동으로 새로고침을하게된다.
-          // 해당하는 새로고침을 강제로 막는다.
-          // docs: https://developer.mozilla.org/ko/docs/Web/API/Event/preventDefault
-          e.preventDefault(); // e: 이벤트 객체
-          console.log("폼 전송함");
-        }
+      // Form 컴포넌트의 Life Cycle
+      // Form -> submit Click -> handleSubmit -> Form
+      // 해당하는 컴포넌트는 반복한다.
+      function Form({onSubmit}) {
+        // useState는 상태 값을 나타낸다.
+        // useState에는 초기값을 넣는다.
+        // useState는 2개의 인자를 가진다.
+        // const counterState = React.useState(0);
+        // const counterValue = counterState[0]; // 1번째 인자 = 카운터 값
+        // const counterFunc = counterState[0]; // 2번째 인자 = 카운터를 변경하는 함수
+
+        // const [counter, setCounter] = React.useState(0);
+        // console.log(counter);
 
         return (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={onSubmit}>
             <input type="text" name="name" placeholder="영어 대사를 입력해주세요" />
             <button type="submit">생성</button>
           </form>
@@ -141,17 +144,32 @@
       }
 
 
-      const app = (
-        <div>
-          <Title> 1번째 고양이 </Title>
-          <Form/>
-          <MainCard/>
-          <Favorites/>
-        </div>
-      )
+      // 상태는 컴포넌트만 된다.
+      const App = () => {
+        const [counter, setCounter] = React.useState(0);
+
+        function handleSubmit(e){
+          // 브라우저에서 submit이 실행되었을 경우엔 자동으로 새로고침을하게된다.
+          // 해당하는 새로고침을 강제로 막는다.
+          // docs: https://developer.mozilla.org/ko/docs/Web/API/Event/preventDefault
+          e.preventDefault(); // e: 이벤트 객체
+          console.log("폼 전송함");
+          setCounter(counter + 1);
+        }
+
+        // 상위에서 Title에 state Counter와 Form에 state setCounter를 전달한다.
+        return (
+          <div>
+            <Title> {counter}번째 고양이 </Title>
+            <Form onSubmit={handleSubmit}/>
+            <MainCard/>
+            <Favorites/>
+          </div>
+        );
+      }
       const target = document.querySelector("#app");
       // ReactDOM.render(catItem, target); // catItem에 해당하는 li -> List Item을 target에 추가한다.
-      ReactDOM.render(app, target); // app에 해당하는 div를 만들어서 내부에 mainCard, favorites를 삽입한다.
+      ReactDOM.render(<App/>, target); // app에 해당하는 div를 만들어서 내부에 mainCard, favorites를 삽입한다.
     </script>
   </body>
 </html>
