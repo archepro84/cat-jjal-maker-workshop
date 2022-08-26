@@ -64,6 +64,8 @@
       // jsx -> xml, js 문법을 합쳐놓았다 ...
       // Input을 받을 수 있는 함수 형태의 컴포넌트가 된다.
       function CatItem(props) {
+        // css 따로 저장하지 않음,
+        // 이모션이나 스타일드 컴포넌트 방식이 많이 사용된다.
         const myStyle = {width:'150px'};
 
         return (
@@ -75,24 +77,15 @@
             />
           </li>
         )
-      }
-      // css 따로 저장하지 않음,
-      // 이모션이나 스타일드 컴포넌트 방식이 많이 사용된다.
 
+      }
 
 
 
       // 중괄호에는 js 표현식을 사용할 수 있다 ...
       // 브라우저 console에서 사용하는 것 처럼 동일한 표현식을 사용할 수 있다.
-      // const favorites = (
-      //   <ul className="favorites">
-      //     <CatItem img="https://cataas.com/cat/60b73094e04e18001194a309/says/react"/>
-      //     <CatItem img={CAT1}/>
-      //     <CatItem img={CAT2}/>
-      //   </ul>
-      // );
 
-      function Favorites () {
+      function Favorites() {
         return (
           <ul className="favorites">
             <CatItem img="https://cataas.com/cat/60b73094e04e18001194a309/says/react"/>
@@ -125,32 +118,6 @@
         )
       }
 
-      // const mainCard = (
-      //   <div className="main-card">
-      //     <img
-      //       src="https://cataas.com/cat/60b73094e04e18001194a309/says/react"
-      //       alt="고양이"
-      //       width="400"
-      //     />
-      //     <button>🤍</button>
-      //   </div>
-      // )
-
-      // function button(icon, label){
-      //   return `${icon}${label}`;
-      // }
-      //
-      // // button
-      // // 이름을 가지는 Component를 반환합니다. 함수형태로 만들어서 반복 사용이 가능해진다.
-      // function button(icon, label){
-      //   // 꺽쇠문법 -> 엘리먼트
-      //   return (
-      //     <div>
-      //       {icon}{label}
-      //     </div>
-      //   );
-      // }
-
       // props.children => html 내부에서 Default Text를 입력한 결과값을 가져온다.
       function Title(props) {
         return <h1>{props.children} </h1>
@@ -158,12 +125,10 @@
 
       function Form() {
         function handleSubmit(e){
-          // console.log(e); // 이벤트 객체
-
           // 브라우저에서 submit이 실행되었을 경우엔 자동으로 새로고침을하게된다.
           // 해당하는 새로고침을 강제로 막는다.
           // docs: https://developer.mozilla.org/ko/docs/Web/API/Event/preventDefault
-          e.preventDefault();
+          e.preventDefault(); // e: 이벤트 객체
           console.log("폼 전송함");
         }
 
