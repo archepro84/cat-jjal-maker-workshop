@@ -22,46 +22,171 @@
       flex-wrap: wrap;
       gap: 15px;
     }
-    .favorites img {
+/*    .favorites img {
       width: 150px;
-    }
+    }*/
   </style>
   <body>
-    <h1>1번째 고양이 가라사대</h1>
-    <form>
-      <input type="text" name="name" placeholder="영어 대사를 입력해주세요" />
-      <button type="submit">생성</button>
-    </form>
-    <div class="main-card">
-      <img
-        src="https://cataas.com/cat/60b73094e04e18001194a309/says/react"
-        alt="고양이"
-        width="400"
-      />
-      <button>🤍</button>
-    </div>
-    <ul class="favorites">
-      <li>
-        <img
-          src="https://cataas.com/cat/60b73094e04e18001194a309/says/react"
-          alt="고양이"
-        />
-      </li>
-      <li>
-        <img
-          src="https://cataas.com/cat/60b73094e04e18001194a309/says/react"
-          alt="고양이"
-        />
-      </li>
-      <li>
-        <img
-          src="https://cataas.com/cat/60b73094e04e18001194a309/says/react"
-          alt="고양이"
-        />
-      </li>
-    </ul>
-    <script>
-      console.log("야옹");
+  <div  id="app">
+
+  </div>
+
+    <!-- React를 실행. -->
+    <!-- 주의: 사이트를 배포할 때는 "development.js"를 "production.min.js"로 대체하세요. -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <!--Babel-->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+
+    <!-- 바벨을 정의하고 이번 스크립트는 바벨로 이해한다.-->
+    <script type="text/babel">
+      const CAT1 = "https://cataas.com/cat/60b73094e04e18001194a309/says/react";
+      const CAT2 = "https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn";
+      const CAT3 = "https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript";
+
+      function getHttpStatusCat(imageUrl) {
+        const catItem  = (
+          <li>
+            <img
+              src="https://http.cat/{imageUrl}"
+              alt="고양이"
+            />
+          </li>
+        )
+
+        return catItem;
+      }
+
+      const catImageUrlList = [400,401,402,403,404,405];
+
+      // 꺽쇠 문법 : jsx 문법
+      // jsx -> xml, js 문법을 합쳐놓았다 ...
+      // Input을 받을 수 있는 함수 형태의 컴포넌트가 된다.
+      function CatItem(props) {
+        const myStyle = {width:'150px'};
+
+        return (
+          <li>
+            <img
+              style={myStyle}
+              src={props.img}
+              alt="고양이"
+            />
+          </li>
+        )
+      }
+      // css 따로 저장하지 않음,
+      // 이모션이나 스타일드 컴포넌트 방식이 많이 사용된다.
+
+
+
+
+      // 중괄호에는 js 표현식을 사용할 수 있다 ...
+      // 브라우저 console에서 사용하는 것 처럼 동일한 표현식을 사용할 수 있다.
+      // const favorites = (
+      //   <ul className="favorites">
+      //     <CatItem img="https://cataas.com/cat/60b73094e04e18001194a309/says/react"/>
+      //     <CatItem img={CAT1}/>
+      //     <CatItem img={CAT2}/>
+      //   </ul>
+      // );
+
+      function Favorites () {
+        return (
+          <ul className="favorites">
+            <CatItem img="https://cataas.com/cat/60b73094e04e18001194a309/says/react"/>
+            <CatItem img="https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn"/>
+            <CatItem img="https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript"/>
+          </ul>
+        )
+      }
+
+      const MainCard = () => {
+        // Handle - 이벤트 핸들러에 관련된거 쓸때 관용사
+        function handleClickHeart() {
+          console.log("하트 클릭");
+        }
+        // 내부 함수
+        function handleMouseOverHeart() {
+          console.log("하트 스쳐지나감");
+        }
+
+        return (
+          <div className="main-card">
+            <img
+              src="https://cataas.com/cat/60b73094e04e18001194a309/says/react"
+              alt="고양이"
+              width="400"
+            />
+            <button onClick={handleClickHeart}
+            onMouseOver={handleMouseOverHeart}>🤍</button>
+          </div>
+        )
+      }
+
+      // const mainCard = (
+      //   <div className="main-card">
+      //     <img
+      //       src="https://cataas.com/cat/60b73094e04e18001194a309/says/react"
+      //       alt="고양이"
+      //       width="400"
+      //     />
+      //     <button>🤍</button>
+      //   </div>
+      // )
+
+      // function button(icon, label){
+      //   return `${icon}${label}`;
+      // }
+      //
+      // // button
+      // // 이름을 가지는 Component를 반환합니다. 함수형태로 만들어서 반복 사용이 가능해진다.
+      // function button(icon, label){
+      //   // 꺽쇠문법 -> 엘리먼트
+      //   return (
+      //     <div>
+      //       {icon}{label}
+      //     </div>
+      //   );
+      // }
+
+      // props.children => html 내부에서 Default Text를 입력한 결과값을 가져온다.
+      function Title(props) {
+        return <h1>{props.children} </h1>
+      }
+
+      function Form() {
+        function handleSubmit(e){
+          // console.log(e); // 이벤트 객체
+
+          // 브라우저에서 submit이 실행되었을 경우엔 자동으로 새로고침을하게된다.
+          // 해당하는 새로고침을 강제로 막는다.
+          // docs: https://developer.mozilla.org/ko/docs/Web/API/Event/preventDefault
+          e.preventDefault();
+          console.log("폼 전송함");
+        }
+
+        return (
+          <form onSubmit={handleSubmit}>
+            <input type="text" name="name" placeholder="영어 대사를 입력해주세요" />
+            <button type="submit">생성</button>
+          </form>
+        )
+      }
+
+
+      const app = (
+        <div>
+          <Title> 1번째 고양이 </Title>
+          <Form/>
+          <MainCard/>
+          <Favorites/>
+        </div>
+      )
+      const target = document.querySelector("#app");
+      // ReactDOM.render(catItem, target); // catItem에 해당하는 li -> List Item을 target에 추가한다.
+      ReactDOM.render(app, target); // app에 해당하는 div를 만들어서 내부에 mainCard, favorites를 삽입한다.
     </script>
   </body>
 </html>
